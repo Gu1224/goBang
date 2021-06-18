@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html">
+    <title>五子棋</title>
+    <script src="assets/js/goBang.js" type="text/javascript"></script>
+    <script>
+        var option;
+        var initBoard;
+        var goBangGame;
+        window.onload = function () {
+            option = {
+                canvasDOM: document.getElementById('myCanvas'),
+                board: {
+                    coordinate: false,
+                    persetZoom: 1.2
+                }
+            };
+            initBoard = new initGobang(option);
+            goBangGame = new game(initBoard);
+            goBangGame.board.canvas.addEventListener('click', goBangGame.startGame.bind(goBangGame), false);
+            goBangGame.board.canvas.addEventListener('mousemove', goBangGame.mouseOnHover.bind(goBangGame), false);
+        };
+    </script>
+    <style>
+        .wrapper {
+            width: 1200px;
+            margin: auto;
+        }
+
+        .contain {
+            width: 50%;
+            margin: 10px auto;
+        }
+
+        #chessboard {
+            display: inline-block;
+            border: 1px solid #c3c3c3;
+            padding: 5px;
+        }
+
+        #myCanvas {
+            background-color: #fff;
+        }
+
+        .operationBox {
+            display: inline-block;
+        }
+
+        #restart, #forbiddenRule, #normalRule {
+            padding: 5px;
+            margin: 5px;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper" style="">
+    <div class="contain">
+        <div id="chessboard">
+            <canvas id="myCanvas" width="486" height="506"></canvas>
+        </div>
+        <div class="operationBox">
+            <div>
+                <button id="normalRule" onclick="goBangGame.gameMode('normalRuleMode')">普通玩法</button>
+            </div>
+            <div>
+                <button id="forbiddenRule" onclick="goBangGame.gameMode('forbiddenRuleMode')">有禁玩法</button>
+            </div>
+            <div>
+                <button id="restart" onclick="goBangGame.restart()">再来一局</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
